@@ -1,0 +1,300 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Navbar */
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 50px;
+    background: #0f172a;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav h2 {
+    color: #38bdf8;
+}
+
+nav div {
+    display: flex;
+    align-items: center;
+}
+
+nav a {
+    color: white;
+    margin-left: 25px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #38bdf8;
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    background: linear-gradient(to right, #0f172a, #1e293b);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.profile-img {
+    width: 130px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    border: 3px solid #38bdf8;
+}
+
+.hero h1 {
+    font-size: 50px;
+    margin-bottom: 10px;
+    animation: fadeIn 2s ease-in;
+}
+
+.hero p {
+    font-size: 20px;
+    color: #94a3b8;
+}
+
+.hero button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    border: none;
+    background: #38bdf8;
+    color: black;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.hero button:hover {
+    background: white;
+    transform: scale(1.05);
+}
+
+/* Sections */
+section {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+section h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+section h2::after {
+    content: "";
+    width: 70%;
+    height: 3px;
+    background: #38bdf8;
+    display: block;
+    margin: 10px auto;
+}
+
+section p {
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* About */
+#about {
+    background: #f8fafc;
+}
+
+/* Skills */
+#skills {
+    background: white;
+    font-size: 18px;
+}
+
+.skills-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.skills-container span {
+    background: #0f172a;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.skills-container span:hover {
+    background: #38bdf8;
+    color: black;
+}
+
+/* Projects */
+#projects {
+    background: #e2e8f0;
+}
+
+.project-buttons button {
+    margin: 5px;
+    padding: 10px 15px;
+    border: none;
+    background: #0f172a;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.project-buttons button:hover {
+    background: #38bdf8;
+    color: black;
+}
+
+.projects-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Cards */
+.card {
+    background: white;
+    margin: 20px auto;
+    padding: 25px;
+    max-width: 600px;
+    width: 90%;
+    border-radius: 15px;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+/* Contact */
+#contact {
+    background: #0f172a;
+    color: white;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav div {
+        margin-top: 10px;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .card {
+        width: 90%;
+    }
+}
+
+.social-icons {
+    margin-top: 20px;
+}
+
+.social-icons a {
+    margin: 0 10px;
+    font-size: 30px;
+    color: white;
+    transition: 0.3s;
+}
+
+.social-icons a:hover {
+    color: #38bdf8;
+    transform: scale(1.2);
+}
+
+footer {
+    background: #020617;
+    color: white;
+    text-align: center;
+    padding: 20px;
+
+}
+
+
+
+
+body.light-mode {
+    background: white;
+    color: black;
+}
+
+body.light-mode nav {
+    background: #e2e8f0;
+    color: black;
+}
+
+body.light-mode .hero {
+    background: linear-gradient(to right, #dbeafe, #bfdbfe);
+    color: black;
+}
+
+body.light-mode .card {
+    background: #f1f5f9;
+}
+
+
+
+
+.hidden {
+    opacity: 0;
+    transform: translateY(100px);
+    transition: all 1s ease;
+}
+
+.show {
+    opacity: 1;
+    transform: translateY(0);
+     
+}
