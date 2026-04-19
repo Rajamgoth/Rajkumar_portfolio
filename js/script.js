@@ -13,7 +13,7 @@ const observer = new IntersectionObserver((entries) => {
         }
     });
 }, {
-    threshold: 0.3   
+    threshold: 0.3
 });
 
 elements.forEach(el => observer.observe(el));
@@ -66,10 +66,18 @@ function deleteMessage(id) {
     fetch(`https://portfolio-backend-yt3t.onrender.com/api/contact/messages/${id}`, {
         method: "DELETE"
     })
-    .then(res => res.text())
-    .then(msg => {
-        alert(msg);
-        location.reload();
-    })
-    .catch(() => alert("Delete failed"));
+        .then(res => {
+            if (!res.ok) {
+                throw new Error("Delete failed");
+            }
+            return res.text();
+        })
+        .then(msg => {
+            alert(msg);
+            location.reload();
+        })
+        .catch(err => {
+            console.error(err);
+            alert("Error deleting message");
+        });
 }
