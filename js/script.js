@@ -57,3 +57,19 @@ document.getElementById("contact-form").addEventListener("submit", async functio
         status.style.color = "red";
     }
 });
+
+//delete by id
+function deleteMessage(id) {
+
+    if (!confirm("Are you sure?")) return;
+
+    fetch(`https://portfolio-backend-yt3t.onrender.com/api/contact/messages/${id}`, {
+        method: "DELETE"
+    })
+    .then(res => res.text())
+    .then(msg => {
+        alert(msg);
+        location.reload();
+    })
+    .catch(() => alert("Delete failed"));
+}

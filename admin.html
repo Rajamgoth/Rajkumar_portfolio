@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Admin Dashboard</title>
     <style>
@@ -21,7 +22,8 @@
             background: #1e293b;
         }
 
-        th, td {
+        th,
+        td {
             padding: 12px;
             border-bottom: 1px solid #334155;
             text-align: left;
@@ -39,39 +41,44 @@
 
 <body>
 
-<h1>📊 Admin Dashboard</h1>
+    <h1>📊 Admin Dashboard</h1>
 
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Message</th>
-            <th>Date</th>
-        </tr>
-    </thead>
-    <tbody id="tableBody"></tbody>
-</table>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Message</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
 
-<script>
-    fetch("https://portfolio-backend-yt3t.onrender.com/api/contact/messages")
-        .then(res => res.json())
-        .then(data => {
-            let table = document.getElementById("tableBody");
+    <script>
+        fetch("https://portfolio-backend-yt3t.onrender.com/api/contact/messages")
+            .then(res => res.json())
+            .then(data => {
+                let table = document.getElementById("tableBody");
 
-            data.forEach(item => {
-                let row = `
+                data.forEach(item => {
+                    let row = `
                     <tr>
                         <td>${item.name}</td>
                         <td>${item.email}</td>
                         <td>${item.message}</td>
                         <td>${item.createdAt || "N/A"}</td>
+                        <td>
+                           <button onclick="deleteMessage(${item.id})">Delete</button>
+                        </td>
                     </tr>
                 `;
-                table.innerHTML += row;
+                    table.innerHTML += row;
+                });
             });
-        });
-</script>
+    </script>
 
 </body>
+
 </html>
