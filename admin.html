@@ -77,6 +77,31 @@
                     table.innerHTML += row;
                 });
             });
+
+        function deleteMessage(id) {
+
+            console.log("Deleting ID:", id);
+
+            if (!confirm("Are you sure?")) return;
+
+            fetch(`https://portfolio-backend-yt3t.onrender.com/api/contact/messages/${id}`, {
+                method: "DELETE"
+            })
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error("Delete failed");
+                    }
+                    return res.text();
+                })
+                .then(msg => {
+                    alert(msg);
+                    location.reload();
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert("Error deleting message");
+                });
+        }
     </script>
 
 </body>
