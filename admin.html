@@ -57,25 +57,41 @@
     </table>
 
     <script>
-        fetch("https://portfolio-backend-yt3t.onrender.com/api/contact/messages")
-            .then(res => res.json())
+        const token = localStorage.getItem("token");
+
+        fetch("https://portfolio-backend-yt3t.onrender.com/api/contact/messages", {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error("Unauthorized");
+                }
+                return res.json();
+            })
             .then(data => {
                 let table = document.getElementById("tableBody");
 
                 data.forEach(item => {
                     let row = `
-                    <tr>
-                        <td>${item.name}</td>
-                        <td>${item.email}</td>
-                        <td>${item.message}</td>
-                        <td>${item.createdAt || "N/A"}</td>
-                        <td>
-                           <button onclick="deleteMessage(${item.id})">Delete</button>
-                        </td>
-                    </tr>
-                `;
+            <tr>
+                <td>${item.name}</td>
+                <td>${item.email}</td>
+                <td>${item.message}</td>
+                <td>${item.createdAt || "N/A"}</td>
+                <td>
+                    <button onclick="deleteMessage(${item.id})">Delete</button>
+                </td>
+            </tr>
+        `;
                     table.innerHTML += row;
                 });
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Please login first");
+                window.location.href = "admin-login.html"; // redirect
             });
 
         function deleteMessage(id) {
