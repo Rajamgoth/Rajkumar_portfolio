@@ -58,6 +58,12 @@
             color: white;
             padding: 5px 10px;
             cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .center {
+            text-align: center;
+            padding: 20px;
         }
     </style>
 </head>
@@ -66,7 +72,7 @@
 
     <div class="top-bar">
         <h1>📊 Admin Dashboard</h1>
-        <button class="logout" onclick="logout()">Logout</button>
+        <button class="logout" onclick="logout()">Logout 🚪</button>
     </div>
 
     <table>
@@ -79,45 +85,57 @@
                 <th>Action</th>
             </tr>
         </thead>
-        <tbody id="tableBody"></tbody>
+        <tbody id="tableBody">
+            <tr><td colspan="5" class="center">Loading... ⏳</td></tr>
+        </tbody>
     </table>
 
     <script>
-        // ✅ STEP 1: CHECK TOKEN
         const token = localStorage.getItem("token");
 
+        // ✅ CHECK TOKEN
         if (!token) {
             alert("Please login first 🔐");
             window.location.href = "admin-login.html";
         }
 
-        // ✅ STEP 2: FETCH DATA
-        fetch("https://portfolio-backend-yt3t.onrender.com/api/contact/messages", {
+        const API = "https://portfolio-backend-yt3t.onrender.com/api/contact/messages";
+        const table = document.getElementById("tableBody");
+
+        // ✅ FETCH DATA
+        fetch(API, {
             headers: {
                 "Authorization": "Bearer " + token
             }
         })
             .then(res => {
-                if (res.status === 403) {
+                if (res.status === 401 || res.status === 403) {
                     throw new Error("Session expired");
                 }
                 return res.json();
             })
             .then(data => {
-                let table = document.getElementById("tableBody");
+
+                table.innerHTML = ""; // clear loading
+
+                // ✅ EMPTY STATE
+                if (data.length === 0) {
+                    table.innerHTML = `<tr><td colspan="5" class="center">No messages found 😔</td></tr>`;
+                    return;
+                }
 
                 data.forEach(item => {
-                    let row = `
-                <tr>
-                    <td>${item.name}</td>
-                    <td>${item.email}</td>
-                    <td>${item.message}</td>
-                    <td>${item.createdAt || "N/A"}</td>
-                    <td>
-                        <button class="delete" onclick="deleteMessage(${item.id})">Delete</button>
-                    </td>
-                </tr>
-            `;
+                    const row = `
+                    <tr>
+                        <td>${item.name}</td>
+                        <td>${item.email}</td>
+                        <td>${item.message}</td>
+                        <td>${item.createdAt || "N/A"}</td>
+                        <td>
+                            <button class="delete" onclick="deleteMessage(${item.id})">Delete</button>
+                        </td>
+                    </tr>
+                `;
                     table.innerHTML += row;
                 });
             })
@@ -128,12 +146,12 @@
                 window.location.href = "admin-login.html";
             });
 
-        // ✅ DELETE API
+        // ✅ DELETE FUNCTION
         function deleteMessage(id) {
 
             if (!confirm("Are you sure?")) return;
 
-            fetch(`https://portfolio-backend-yt3t.onrender.com/api/contact/messages/${id}`, {
+            fetch(`${API}/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Authorization": "Bearer " + token

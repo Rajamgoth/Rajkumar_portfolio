@@ -47,7 +47,7 @@ document.getElementById("login-form").addEventListener("submit", async function(
         }
 
     } catch (error) {
-        console.error(error);
+        console.error("LOGIN ERROR", error);
         status.innerText = "Something went wrong ❌";
     }
 });
